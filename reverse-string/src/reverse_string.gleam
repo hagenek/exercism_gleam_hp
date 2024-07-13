@@ -1,3 +1,5 @@
+import gleam/string
+
 // Introduction
 // Reversing strings (reading them from right to left, rather than from left to right) is a surprisingly common task in programming.
 //
@@ -12,8 +14,14 @@
 // Turn "strops" into "sports".
 // Turn "racecar" into "racecar".
 
-import gleam/string
+fn do_reverse(acc: List(String), list: List(String)) {
+  case list {
+    [] -> acc
+    [first, ..rest] -> do_reverse([first, ..acc], rest)
+  }
+}
 
 pub fn reverse(value: String) -> String {
-  string.reverse(value)
+  do_reverse([], string.to_graphemes(value))
+  |> string.join("")
 }
